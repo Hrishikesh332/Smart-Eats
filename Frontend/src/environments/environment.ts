@@ -1,5 +1,5 @@
 export const environment = {
-  apiBaseUrl: 'https://smarteats.onrender.com',
+  apiBaseUrl: 'http://127.0.0.1:5000',
   production: true,
   firebaseConfig: {
     apiKey: "AIzaSyAt72PpeiTqdLfSf1hMAeuVeXJUwMDPYZ0",
