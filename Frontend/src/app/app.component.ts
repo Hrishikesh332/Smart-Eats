@@ -2,6 +2,7 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Component, Inject, PLATFORM_ID } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { NavTabComponent } from './components/nav-tab/nav-tab.component';
 import { FooterComponent } from './components/footer/footer.component';
 import * as AOS from 'aos';
@@ -11,7 +12,8 @@ import * as AOS from 'aos';
   standalone: true,
   imports: [RouterOutlet, CommonModule, NavTabComponent,NgxSpinnerModule, FooterComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
+  schemas: [CUSTOM_ELEMENTS_SCHEMA] // Add this line
 })
 export class AppComponent {
   title = 'Smart Eats';
