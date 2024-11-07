@@ -1,0 +1,103 @@
+<!-- <div *ngIf="showFirstDiv" class="promotion" data-aos="zoom-in-right">
+    <img src="assets/images/Medal.jpg" class="img-fluid w-100" height="200px">
+    <div class="promotion-content">
+        <h5 class="text-white mb-3">Create Your Challange Here!!</h5>
+        <p class="text-white mb-4">Forge your path to greatnes - Create Your Meal Planner Here and unlock your true potential !!!</p>
+        <li class="list-inline-item">
+            <a class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#create">Do Take Challenge</a>
+        </li>
+    </div>
+</div>
+
+<div *ngIf="!showFirstDiv" class="promotion" data-aos="zoom-in-right">
+    <img src="assets/images/promotion.jpg" class="img-fluid w-100" height="200px">
+    <div class="promotion-content">
+        <h5 class="text-white mb-3">Create Your Challange Here!!</h5>
+        <p class="text-white mb-4">Forge your path to greatnes - Create Your Meal Planner Here and unlock your true potential !!!</p>
+        <a class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#create">Get Started</a>
+    </div>
+</div> -->
+
+<!-- Modal for create challenge -->
+<div class="modal fade" id="create" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Create Meal Planner</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="exampleInputEmail1">Challange Name</label>
+          <input type="text" class="form-control" id="challangename" #challangeName aria-describedby="challangename">
+        </div>
+        <div class="row">
+          <div class="form-group col">
+            <label for="selectday">Prefrance</label>
+            <select class="form-control" id="prefrance" #challangPreference>
+              <option selected>Prefrance</option>
+              <option value="veg">Veg</option>
+              <option value="nonveg">Non Veg</option>
+              <option value="vegan">Vegan</option>
+            </select>
+          </div>
+          <div class="form-group col">
+            <label for="selectday">Day</label>
+            <select class="form-control" id="selectday" #selectedday>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+            </select>
+          </div>
+          <div class="form-group col">
+            <label for="selectday">Target Body</label>
+            <select class="form-control" id="selectday" #targetBody>
+              <option value="Bulk">Bulk</option>
+              <option value="Lean Bulk">Lean Bulk</option>
+              <option value="Lean">Lean</option>
+              <option value="Cutting">Cutting</option>
+              <option value="Maintain">Maintain</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col">
+            <label for="meal_allergies">Meal allergies</label>
+            <select class="form-control" id="allergies" #allergies>
+              <option selected>Select</option>
+              <option value="peanuts">Peanuts</option>
+              <option value="milk">Milk</option>
+              <option value="vegan">Eggs</option>
+              <option value="wheat">Wheat</option>
+              <option value="soy">Soy</option>
+              <option value="fish">Fish</option>
+              <option value="gluten">Gluten</option>
+              <option value="mustard">Mustard</option>
+              <option value="corn">Corn</option>
+            </select>
+          </div>
+          <div class="form-group col">
+            <label for="diabetes">Diabetes</label>
+            <select class="form-control" id="diabetes" #diabetes>
+              <option selected value="Normal">No</option>
+              <option value="diabetic">Yes</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal"
+          (click)="createChallange(challangeName.value,selectedday.value,challangPreference.value,targetBody.value,allergies.value,diabetes.value)">Create
+          Challange</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

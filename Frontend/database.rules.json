@@ -1,0 +1,14 @@
+{
+  "rules": {
+    ".read": "now < 1921500200000",
+    ".write": "auth != null",
+    "users": {
+      ".indexOn": ["info/score", "info/createdAt", "challenges/createdAt"]
+    },
+    "website": {
+      "banner": {
+        ".write": false
+      }
+    }
+  }
+}

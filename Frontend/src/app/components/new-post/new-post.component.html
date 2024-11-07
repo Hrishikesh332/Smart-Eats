@@ -1,0 +1,372 @@
+<div class="py-4"></div>
+
+<section *ngIf="user.uid === userId" class="section">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class=" col-lg-12 mb-5 mb-lg-0">
+        <article>
+          <!-- <div class="post-slider mb-4">
+            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+              <div class="carousel-inner">
+                <div class="carousel-item" *ngFor="let img of bannerImg">
+                  <img class="d-block w-100 h-100" [src]="img" alt="First slide">
+                </div>
+              </div>
+              <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+              </a>
+              <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+              </a>
+            </div>
+          </div> -->
+          <!-- {{meals|json}} -->
+          <!-- {{currentMeal|json}} -->
+          <h1 class="h2">{{currentMeal.title}} </h1>
+          <ul class="card-meta my-3 list-inline">
+            <li class="list-inline-item">
+              <a class="card-meta-author">
+                <img [src]="currentMeal.photoURL">
+                <span>{{currentMeal.displayName}}</span>
+              </a>
+            </li>
+            <li class="list-inline-item">
+              <i class="ti-timer"></i>{{currentMeal.day}} Day
+            </li>
+            <li class="list-inline-item">
+              <i class="ti-calendar"></i>{{currentMeal.createdAt}}
+            </li>
+            <li class="list-inline-item">
+              <ul class="card-meta-tag list-inline">
+                <!-- tag fiter apply here (click)="getTag("#preference")" -->
+                <li class="list-inline-item"><a>{{currentMeal.preference}}</a></li>
+                <li class="list-inline-item"><a data-toggle="modal" data-target="#gallery">Photo Gallery </a></li>
+              </ul>
+            </li>
+          </ul>
+          <!-- <h5 id="tables">Tables</h5> -->
+          <!-- <p> Your meals reward you with a healthy body and mind. The right meal at the right time can make a huge
+            difference in your life. Let complete your daily meal Challenge with us. </p> -->
+        </article>
+
+        <div class="content col-lg-12 col-md-12">
+          <div class="code-tabs">
+            <ul class="nav nav-tabs">
+              <li *ngFor='let in of counter(this.currentMeal.day) ;let i = index' class="nav-item"
+                [ngClass]="{'active': 'Day'+(i+1) == currentDay}" (click)="open('Day'+(i+1))">
+                <a class="nav-link">Day{{i+1}}</a>
+              </li>
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane active" title="first">
+                <table *ngIf="breakfast && lunch && dinner" class="table table-responsive table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col"><b>Breakfast <i class="ti-timer"></i></b> 8AM TO 10AM</th>
+                      <th scope="col"><b>Lunch <i class="ti-timer"></i></b> 12PM TO 3PM</th>
+                      <th scope="col"><b>Dinner <i class="ti-timer"></i></b> 8PM TO 11PM</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>{{breakfast.name | titlecase}} : {{breakfast.calories}}</td>
+                      <td>{{lunch.name | titlecase}} : {{lunch.calories}}</td>
+                      <td>{{dinner.name | titlecase}} : {{dinner.calories}}</td>
+                    </tr>
+                    <tr>
+                      <td><i>{{breakfast.details}}</i></td>
+                      <td><i>{{lunch.details}}</i></td>
+                      <td><i>{{dinner.details}}</i></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <img *ngIf="breakfast.img" [src]="breakfast.img" style="width: 200px;" class="card-img" alt="Breakfast image">
+
+                        <!-- Show the upload button only between 8 AM and 10 AM -->
+                        <div *ngIf="!breakfast.img" class="custom-file">
+                          <input 
+                            type="file" 
+                            class="custom-file-input" 
+                            #bupload 
+                            (change)="saveImage(bupload, 'breakfast', breakfast.name)" 
+                            id="bcustomFile">
+                          <label class="custom-file-label" for="bcustomFile">
+                            <i class="fas fa-upload"></i> Choose file
+                          </label>
+                        </div>
+                      
+                        <!-- Show an icon outside of 8 AM to 10 AM -->
+                        <!-- <span *ngIf="!isTimeInRange(currentTime, '08:00:00', '10:00:00') && !breakfast.img" class="fas fa-thumbs-up">Soon...</span> -->
+                      </td>
+                      <td>
+                        <img *ngIf="lunch.img" [src]="lunch.img" style="width: 200px;" class="card-img" alt="Lunch image">
+                        
+                        <!-- Show the upload button only between 12 PM and 3 PM -->
+                        <div *ngIf="!lunch.img" class="custom-file">
+                          <input 
+                            type="file" 
+                            class="custom-file-input" 
+                            #lupload 
+                            (change)="saveImage(lupload, 'lunch', lunch.name)" 
+                            id="lcustomFile">
+                          <label class="custom-file-label" for="lcustomFile">
+                            <i class="fas fa-upload"></i> Choose file
+                          </label>
+                        </div>
+                        
+                        <!-- Show an icon outside of 12 PM to 3 PM -->
+                        <!-- <span *ngIf="!isTimeInRange(currentTime, '12:00:00', '15:00:00') && !lunch.img" class="fas fa-cross">Soon...</span> -->
+                      </td>
+                      <td>
+                        <img *ngIf="dinner.img" [src]="dinner.img" style="width: 200px;" class="card-img" alt="Dinner image">
+                        
+                        <!-- Show the upload button only between 8 PM and 11 PM -->
+                        <div *ngIf="!dinner.img" class="custom-file">
+                          <input 
+                            type="file" 
+                            class="custom-file-input" 
+                            #dupload 
+                            (change)="saveImage(dupload, 'dinner', dinner.name)" 
+                            id="dcustomFile">
+                          <label class="custom-file-label" for="dcustomFile">
+                            <i class="fas fa-upload"></i> Choose file
+                          </label>
+                        </div>
+                        
+                        <!-- Show an icon outside of 8 PM to 11 PM -->
+                        <!-- <span *ngIf="!isTimeInRange(currentTime, '20:00:00', '23:00:00') && !dinner.img" class="fas fa-moon">Soon...</span> -->
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <ng-container *ngIf="isTimeInRange(currentTime, '08:00:00', '10:00:00')">
+                          <ng-container *ngIf="breakfast.status === 'Done'">
+                            <span class="list-inline-item"><i class="ti-check"></i> Done</span>
+                          </ng-container>
+                          <ng-container *ngIf="breakfast.status !== 'Done'">
+                            <span class="list-inline-item"><i class="ti-upload"></i> Available</span>
+                          </ng-container>
+                        </ng-container>
+                        <ng-container *ngIf="!isTimeInRange(currentTime, '08:00:00', '10:00:00')">
+                          <ng-container *ngIf="breakfast.status === 'Done'">
+                            <span class="list-inline-item"><i class="ti-check"></i> Done</span>
+                          </ng-container>
+                          <ng-container *ngIf="breakfast.status !== 'Done'">
+                            <span class="list-inline-item">Pending <i class="ti-timer"></i></span>
+                          </ng-container>
+                        </ng-container>
+                      </td>
+                      <td>
+                        <ng-container *ngIf="isTimeInRange(currentTime, '12:00:00', '15:00:00')">
+                          <ng-container *ngIf="lunch.status === 'Done'">
+                            <span class="list-inline-item"><i class="ti-check"></i> {{lunch.status | titlecase}}  12 PM to 3 PM</span>
+                          </ng-container>
+                          <ng-container *ngIf="lunch.status !== 'Done'">
+                            <span class="list-inline-item"><i class="ti-upload"></i> Available  12 PM to 3 PM</span>
+                          </ng-container>
+                        </ng-container>
+                        <ng-container *ngIf="!isTimeInRange(currentTime, '12:00:00', '15:00:00')">
+                          <ng-container *ngIf="lunch.status === 'Done'">
+                            <span class="list-inline-item"><i class="ti-check"></i> Done</span>
+                          </ng-container>
+                          <ng-container *ngIf="lunch.status !== 'Done'">
+                            <span class="list-inline-item"><i class="ti-timer"></i> Pending</span>
+                          </ng-container>
+                        </ng-container>
+                      </td>
+                      <td>
+                        <ng-container *ngIf="isTimeInRange(currentTime, '20:00:00', '23:00:00')">
+                          <ng-container *ngIf="dinner.status === 'Done'">
+                            <span class="list-inline-item"><i class="ti-check"></i> {{dinner.status | titlecase}} 8 PM to 11 PM</span>
+                          </ng-container>
+                          <ng-container *ngIf="dinner.status !== 'Done'">
+                            <span class="list-inline-item"><i class="ti-upload"></i> Available 8 PM to 11 PM</span>
+                          </ng-container>
+                        </ng-container>
+                        <ng-container *ngIf="!isTimeInRange(currentTime, '20:00:00', '23:00:00')">
+                          <ng-container *ngIf="dinner.status === 'Done'">
+                            <span class="list-inline-item"><i class="ti-check"></i> Done</span>
+                          </ng-container>
+                          <ng-container *ngIf="dinner.status !== 'Done'">
+                            <span class="list-inline-item"><i class="ti-timer"></i> Pending</span>
+                          </ng-container>
+                        </ng-container>
+                      </td>
+                    </tr>
+                    <tr *ngIf="breakfast.score || dinner.score || lunch.score">
+                      <td>Score : {{breakfast?.score}}</td>
+                      <td>Score : {{lunch?.score}}</td>
+                      <td>Score : {{dinner?.score}}</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div *ngIf="breakfast.nutrients">
+                              <div *ngFor="let nutrient of breakfast.nutrients | keyvalue">
+                                <span *ngIf="nutrient.key === 'protein'" class="badge px-1 badge-primary"> {{ nutrient.key|titlecase }} : {{ nutrient.value }} </span>
+                                <span *ngIf="nutrient.key === 'calories'" class="badge px-1 badge-success"> {{ nutrient.key|titlecase }} : {{ nutrient.value }} </span>
+                                <span *ngIf="nutrient.key === 'carbohydrates'" class="badge px-1 badge-info"> {{ nutrient.key|titlecase }} : {{ nutrient.value }} </span>
+                                <span *ngIf="nutrient.key === 'fats_saturated'" class="px-1 badge badge-warning"> {{ nutrient.key|titlecase }} : {{ nutrient.value }} </span>
+                                <span *ngIf="nutrient.key === 'fats_unsaturated'" class="px-1 badge badge-warning"> {{ nutrient.key|titlecase }} : {{ nutrient.value }} </span>
+                                <span *ngIf="nutrient.key === 'fats_trans'" class="px-1 badge badge-warning"> {{ nutrient.key|titlecase }} : {{ nutrient.value }} </span>
+                                <span *ngIf="nutrient.key === 'serving_size'" class="px-1 badge badge-dark"> {{ nutrient.key|titlecase }} : {{ nutrient.value }} </span>
+                              </div>
+                            </div>
+                            <div *ngIf="!breakfast.nutrients">
+                              <button class="btn btn-primary" (click)="getNutrients(breakfast.details, 'breakfast')">Check Nutrients</button>
+                            </div>
+                        </td>
+                          <td>
+                            <div *ngIf="lunch.nutrients">
+                              <div *ngFor="let nutrient of lunch.nutrients | keyvalue">
+                                <span *ngIf="nutrient.key === 'protein'" class="badge px-1 badge-primary"> {{ nutrient.key|titlecase }} : {{ nutrient.value }} </span>
+                                <span *ngIf="nutrient.key === 'calories'" class="badge px-1 badge-success"> {{ nutrient.key|titlecase }} : {{ nutrient.value }} </span>
+                                <span *ngIf="nutrient.key === 'carbohydrates'" class="badge px-1 badge-info"> {{ nutrient.key|titlecase }} : {{ nutrient.value }} </span>
+                                <span *ngIf="nutrient.key === 'fats_saturated'" class="px-1 badge badge-warning"> {{ nutrient.key|titlecase }} : {{ nutrient.value }} </span>
+                                <span *ngIf="nutrient.key === 'fats_unsaturated'" class="px-1 badge badge-warning"> {{ nutrient.key|titlecase }} : {{ nutrient.value }} </span>
+                                <span *ngIf="nutrient.key === 'fats_trans'" class="px-1 badge badge-warning"> {{ nutrient.key|titlecase }} : {{ nutrient.value }} </span>
+                                <span *ngIf="nutrient.key === 'serving_size'" class="px-1 badge badge-dark"> {{ nutrient.key|titlecase }} : {{ nutrient.value }} </span>
+                              </div>
+                            </div>
+                            <div *ngIf="!lunch.nutrients">
+                              <button class="btn btn-primary" (click)="getNutrients(lunch.details,'lunch')">Check Nutrients</button>
+                            </div>
+                        </td>
+                        <td>
+                          <div *ngIf="dinner.nutrients">
+                            <div *ngFor="let nutrient of dinner.nutrients | keyvalue">
+                              <span *ngIf="nutrient.key === 'protein'" class="badge px-1 badge-primary"> {{ nutrient.key|titlecase }} : {{ nutrient.value }} </span>
+                              <span *ngIf="nutrient.key === 'calories'" class="badge px-1 badge-success"> {{ nutrient.key|titlecase }} : {{ nutrient.value }} </span>
+                              <span *ngIf="nutrient.key === 'carbohydrates'" class="badge px-1 badge-info"> {{ nutrient.key|titlecase }} : {{ nutrient.value }} </span>
+                              <span *ngIf="nutrient.key === 'fats_saturated'" class="px-1 badge badge-warning"> {{ nutrient.key|titlecase }} : {{ nutrient.value }} </span>
+                              <span *ngIf="nutrient.key === 'fats_unsaturated'" class="px-1 badge badge-warning"> {{ nutrient.key|titlecase }} : {{ nutrient.value }} </span>
+                              <span *ngIf="nutrient.key === 'fats_trans'" class="px-1 badge badge-warning"> {{ nutrient.key|titlecase }} : {{ nutrient.value }} </span>
+                              <span *ngIf="nutrient.key === 'serving_size'" class="px-1 badge badge-dark"> {{ nutrient.key|titlecase }} : {{ nutrient.value }} </span>
+                            </div>
+                          </div>
+                          <div *ngIf="!dinner.nutrients">
+                            <button class="btn btn-primary" (click)="getNutrients(dinner.details,'dinner')">Check Nutrients</button>
+                          </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="d-flex content-justified-center">
+                          <div class="block-inline p-2" (click)="zomato('ncr',breakfast.name)">
+                            <img src="assets/images/zo.png" style="width: 50px;" class="card-img" alt="zo image">
+                          </div>
+                          <div class="block-inline p-2" (click)="swiggy('ncr',breakfast.name)">
+                            <img src="assets/images/sw.png" style="width: 50px;" class="card-img" alt="sw image">
+                          </div>
+                          </div>
+                      </td>
+                      <td>
+                        <div class="d-flex content-justified-center">
+                          <div class="block-inline p-2" (click)="zomato('ncr',lunch.name)">
+                            <img src="assets/images/zo.png" style="width: 50px;" class="card-img" alt="zo image">
+                          </div>
+                          <div class="block-inline p-2" (click)="swiggy('ncr',lunch.name)">
+                            <img src="assets/images/sw.png" style="width: 50px;" class="card-img" alt="sw image">
+                          </div>
+                          </div>
+                      </td>
+                      <td>
+                        <div class="d-flex content-justified-center">
+                          <div class="block-inline p-2" (click)="zomato('ncr',dinner.name)">
+                            <img src="assets/images/zo.png" style="width: 50px;" class="card-img" alt="zo image">
+                          </div>
+                          <div class="block-inline p-2" (click)="swiggy('ncr',dinner.name)">
+                            <img src="assets/images/sw.png" style="width: 50px;" class="card-img" alt="sw image">
+                          </div>
+                          </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Modal -->
+<div class="modal fade" id="gallery" tabindex="-1" role="dialog" aria-labelledby="galleryTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="galleryTitle">Photo Gallery</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Carousel for Image Gallery -->
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+          <div class="carousel-inner">
+            <ng-container *ngFor="let img of bannerImg; let i = index">
+              <div class="carousel-item" [class.active]="i === 0">
+                <img class="d-block w-100" [src]="img" alt="Slide {{ i + 1 }}">
+              </div>
+            </ng-container>
+          </div>
+          <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+      </div>
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div> -->
+    </div>
+  </div>
+</div>
+
+
+<section *ngIf="user.uid !== userId" class="section-sm">
+  <div class="container">
+    <div class="row align-items-center justify-content-center">
+      <div class="col-lg-5 col-md-6 mb-4 mb-md-0">
+        <!-- <app-profile-card></app-profile-card> -->
+        <div class="image-wrapper">
+          <img class="img-fluid w-100" src="assets/images/Medal.jpg">
+          <!-- <div class="promotion-content">
+            <h5 class="text-white mb-3">Create Your Challange Here!!</h5>
+            <p class="text-white mb-4">Forge your path to greatnes - Create Your Challenge Here and unlock your true potential!</p>
+              <li class="list-inline-item">
+                <a class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">Do Take Challenge</a>
+              </li>
+          </div> -->
+        </div>
+      </div>
+      <div class="col-lg-5 col-md-6">
+        <div class="content pl-lg-3 pl-0">
+          <h2 id="what-is-the-main-mission-of-mine-and-what-i-wanna-do">{{currentMeal.displayName}}</h2>
+          <div class="widget">
+            <h4 class="widget-title"><span>{{currentMeal.title}}</span></h4>
+            <span>Date Time {{currentMeal.createdAt}}</span>
+            <span>{{currentMeal.day}} Days</span>
+            <span>Meal Type {{currentMeal.preference}}</span>
+            <ul class="list-inline widget-social">
+              <li class="list-inline-item"><a href="#"><i class="ti-facebook"></i></a></li>
+              <li class="list-inline-item"><a href="#"><i class="ti-twitter-alt"></i></a></li>
+              <li class="list-inline-item"><a href="#"><i class="ti-linkedin"></i></a></li>
+              <li class="list-inline-item"><a href="#"><i class="ti-github"></i></a></li>
+              <li class="list-inline-item"><a href="#"><i class="ti-youtube"></i></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

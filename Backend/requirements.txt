@@ -1,0 +1,10 @@
+APScheduler
+google-generativeai
+flask
+python-dotenv
+jsonify
+pillow
+firebase-admin
+gunicorn==20.1.0
+Flask-Cors==4.0.1
+Flask-Mail==0.10.0

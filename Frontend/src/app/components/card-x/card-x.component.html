@@ -1,0 +1,54 @@
+<article  *ngFor="let challenge of dchallengeArray | paginate: { itemsPerPage: 5, currentPage: p }" class="card mb-4" data-aos="zoom-in">
+  <div class="post-slider">
+    <div class="image-container">
+      <img [src]="getImgUrl(challenge.meals)" class="card-img-top" alt="post-thumb">
+    </div>
+  </div>
+  <div class="card-body">
+    <h3 class="mb-3"><a class="post-title">{{challenge.title | titlecase}}</a></h3>
+    <ul class="card-meta list-inline">
+      <li class="list-inline-item">
+        <a class="card-meta-author" (click)="goToUserProfile(challenge)">
+          <img [src]="challenge.photoURL">
+          <span>{{challenge.displayName | titlecase}}</span>
+        </a>
+      </li>
+      <li class="list-inline-item">
+        <i class="ti-timer"></i>{{challenge.day}} Days
+      </li>
+      <li class="list-inline-item">
+        <i class="ti-calendar"></i>{{challenge.createdAt | date:'h:mm a MMM d, y'}}
+      </li>
+      <li *ngIf="challenge.updatedAt" class="list-inline-item">
+        <i class="ti-pencil-alt"></i>{{challenge.updatedAt | date:'h:mm a MMM d, y'}}
+      </li>
+      <li class="list-inline-item">
+        <ul class="card-meta-tag list-inline">
+          <li class="list-inline-item"><a>{{challenge.preference | uppercase}}</a></li>
+        </ul>
+      </li>
+    </ul>
+    <a class="mr-2 mb-1 btn btn-outline-primary" (click)="openChallenge(challenge)">Open Planner</a>
+    <a *ngIf="challenge?.userId === user?.uid" class="mr-2 mb-1 btn btn-outline-warning" (click)="editChallenge(challenge)">Edit Planner</a>
+    <a *ngIf="challenge?.userId === user?.uid" class="mr-2 mb-1 btn btn-outline-danger" (click)="deleteChallenge(challenge)">Delete Planner</a>
+    <a *ngIf="challenge?.userId === user?.uid" class="btn mb-1 btn-outline-info">Regenerate Planner</a>
+  </div>
+</article>
+<!-- {{dchallengeArray | json}} -->
+<article  *ngIf="dchallengeArray.length === 0" class="card mb-4" data-aos="zoom-in">
+  <div class="post-slider">
+    <div class="no-image">
+      <img src="assets/images/NoData.svg" class="card-img-top" alt="post-thumb">
+    </div>
+  </div>
+  <div class="card-body">
+    <h3 class="mb-3"><a class="post-title">No Meal Planner</a></h3>
+    <p>You can create a Meal Planner by clicking the button in banner</p>
+  </div>
+</article>
+
+<ul *ngIf="user" class="pagination justify-content-center">
+  <li *ngFor="let page of pageNumbers" class="page-item" [ngClass]="{'active': p === page}">
+    <a class="page-link" (click)="goToPage(page)">{{ page }}</a>
+  </li>
+</ul>

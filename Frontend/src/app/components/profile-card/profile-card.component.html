@@ -1,0 +1,19 @@
+<div *ngIf="user" class="widget widget-about" data-aos="zoom-in-right">
+    <h4 class="widget-title">{{userInfo?.displayName}}</h4>
+    <img class="img-fluid" [src]="userInfo?.photoURL ? userInfo?.photoURL : user?.photoURL"
+      alt="{{userInfo?.displayName}}">
+    <small>
+      {{userInfo?.email}}
+    </small>
+    <!-- <span class="d-block">{{userInfo?.bio}}</span> -->
+    <span class="d-block text-info"> Total Challange : {{data?.totalChallenges}} </span>
+    <span class="d-block text-info"> Active Challange : {{data?.activeChallenges}} </span>
+    <span class="d-block text-info"> <i class="ti-medall-alt"></i> Total Score : {{userInfo?.score ? userInfo?.score : 0 }}</span>
+    <ul class="list-inline social-icons mb-3">
+      <li class="list-inline-item"><a href="http://{{userSocial?.facebook}}" target="_blank" rel="noopener noreferrer"><i class="ti-facebook"></i></a></li>
+      <li class="list-inline-item"><a href="http://{{userSocial?.instagram}}" target="_blank" rel="noopener noreferrer"><i class="ti-instagram"></i></a></li>
+      <li class="list-inline-item"><a href="http://{{userSocial?.twitter}}" target="_blank" rel="noopener noreferrer"><i class="ti-twitter-alt"></i></a></li>
+      <li class="list-inline-item"><a href="http://{{userSocial?.linkedin}}" target="_blank" rel="noopener noreferrer"><i class="ti-linkedin"></i></a></li>
+    </ul>
+    <a [routerLink]="['/profile', userInfo?.displayName]" class="btn btn-primary btn-lg btn-block mb-2">About me</a>
+  </div>

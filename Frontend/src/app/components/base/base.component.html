@@ -1,0 +1,20 @@
+<router-outlet></router-outlet>
+<section *ngIf="showSection" class="section-sm m-4">
+    <div class="container">
+        <div class="row justify-content-center">
+            <!-- <div class="col-lg-12 mb-5 mb-lg-0">
+                <h2 class="h5 section-title">Create Challenge</h2>
+                <aside class="sidebar-home">
+                    <app-create-x></app-create-x>
+                    <app-profile-card></app-profile-card>
+                </aside>
+            </div> -->
+            <app-create-x></app-create-x>
+
+            <div class="col-lg-12 mb-5 mb-lg-0">
+                <h2 class="h5 section-title" id="RecentPost">Recent Post</h2>
+                 <app-card-x></app-card-x>
+            </div>
+        </div>
+    </div>
+</section>

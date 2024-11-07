@@ -1,0 +1,17 @@
+.table th, .table td {
+  width: 33%;
+  text-align: center;
+}
+
+.content table {
+  border: none;
+}
+
+.table td:hover {
+  background-color: #f5f5f5; /* Change to your desired color */
+  cursor: pointer; /* Optional: change the cursor to a pointer */
+}
+
+.carousel-item{
+  height: 400px;
+}

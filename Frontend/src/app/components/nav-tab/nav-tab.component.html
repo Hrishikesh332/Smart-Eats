@@ -1,0 +1,54 @@
+
+<header class="navigation fixed-top" data-aos="zoom-in-up">
+  <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <a *ngIf="!fauth.userData" class="navbar-brand order-1" routerLink="/" (click)="toggleNavbar()">
+        <img class="img-fluid" width="100px" src="assets/images/logo.jpeg" alt="Reader | Hugo Personal Blog Template">
+      </a>
+      <a *ngIf="fauth.userData" class="navbar-brand order-1" routerLink="/dash-board" (click)="toggleNavbar()">
+        <img class="img-fluid" width="100px" src="assets/images/logo.jpeg" alt="Reader | Hugo Personal Blog Template">
+      </a>
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>      
+
+      <div class="collapse navbar-collapse text-center order-lg-2 order-3" id="navigation">
+        <ul class="navbar-nav mx-auto">
+          
+          <li class="nav-item dropdown">
+            <a *ngIf="!fauth.userData" class="nav-link" [routerLink]="['/']" [ngClass]="{'active': activeRoute === '/'}" (click)="toggleNavbar()">Home</a>
+            <a *ngIf="fauth.userData" class="nav-link" [ngClass]="{'active': activeRoute === '/feed'}" (click)="toggleNavbar();navHome()">Home</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" (click)="navAbout()" [ngClass]="{'active': activeRoute === '/about'}" (click)="toggleNavbar()">About</a>
+          </li>
+
+          <li  *ngIf="fauth.userData" class="nav-item">
+            <a class="nav-link" (click)="navLeaderboard()" [ngClass]="{'active': activeRoute === '/leader-board'}" (click)="toggleNavbar()">Leader-board</a>
+          </li>
+
+          <li *ngIf="fauth.userData as user" class="nav-item dropdown">
+            <a class="nav-link" href="#" id="profileDropdown" role="button" data-toggle="dropdown" [ngClass]="{'active': isProfileActive}" aria-haspopup="true" aria-expanded="false">
+              {{user.displayName | titlecase}} <i class="ti-angle-down ml-1"></i>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="profileDropdown">
+              <a class="dropdown-item" (click)="navProfile(); toggleNavbar()">Profile</a>
+              <a class="dropdown-item" (click)="fauth.logout(); toggleNavbar()">Logout</a>
+            </div>
+          </li>
+
+          <li *ngIf="!fauth.userData" class="nav-item">
+            <a class="nav-link" [routerLink]="['/register']" [ngClass]="{'active': activeRoute === '/register'}" (click)="toggleNavbar()">Register</a>
+          </li>
+
+          <li *ngIf="!fauth.userData" class="nav-item">
+            <a class="nav-link" [routerLink]="['/login']" [ngClass]="{'active': activeRoute === '/login'}" (click)="toggleNavbar()">Login</a>
+          </li>
+          
+        </ul>
+      </div>
+    </nav>
+  </div>
+</header>

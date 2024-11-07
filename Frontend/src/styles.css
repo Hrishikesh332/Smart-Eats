@@ -1,0 +1,36 @@
+.form-border{
+  border: 1px solid #4FD675;
+  border-radius: 18px;
+  padding: 10px;
+}
+
+
+.image-container {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 20%; /* This will set the height to 50% of the width */
+  overflow: hidden;
+}
+
+.image-container img {
+  position: absolute;
+  top: 50%; /* Start from the middle */
+  left: 50%;
+  transform: translate(-50%, -50%); /* Center the image */
+  width: 100%; /* 100% width */
+  height: auto; /* Adjust height automatically */
+}
+
+body.swal2-toast-shown .swal2-container {
+  width: auto !important;
+}
+
+.swal2-popup.swal2-toast {
+  padding: 0.5em !important;
+}
+
+.swal2-confirm {
+  border: 1px solid #4FD675 !important;
+  background-color: #4FD675 !important;
+}

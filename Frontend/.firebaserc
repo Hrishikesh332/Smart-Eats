@@ -1,0 +1,9 @@
+{
+  "projects": {
+    "default": "smarteats-e3e08",
+    "staging": "smarteats-e3e08"
+  },
+  "targets": {},
+  "etags": {},
+  "dataconnectEmulatorConfig": {}
+}
